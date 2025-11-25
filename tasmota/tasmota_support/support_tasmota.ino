@@ -946,24 +946,23 @@ void MqttPublishTeleState(void)
 void TempHumDewShow(bool json, bool pass_on, const char *types, float f_temperature, float f_humidity)
 {
   if (json) {
-    ResponseAppend_P(PSTR(",\"%s\":{"), types);
-    ResponseAppendTHD(f_temperature, f_humidity);
-    ResponseJsonEnd();
+    ResponseAppend_P(PSTR(",\"Temperature\":%.1f,\"Humidity\":%.1f"), f_temperature, f_humidity);
 #ifdef USE_DOMOTICZ
     if (pass_on) {
       DomoticzTempHumPressureSensor(f_temperature, f_humidity);
     }
-#endif  // USE_DOMOTICZ
+#endif
 #ifdef USE_KNX
     if (pass_on) {
       KnxSensor(KNX_TEMPERATURE, f_temperature);
       KnxSensor(KNX_HUMIDITY, f_humidity);
     }
-#endif  // USE_KNX
+#endif
 #ifdef USE_WEBSERVER
   } else {
-    WSContentSend_THD(types, f_temperature, f_humidity);
-#endif  // USE_WEBSERVER
+    WSContentSend_PD(PSTR("{s}Temperature{m}%.1f C{e}"), f_temperature);
+    WSContentSend_PD(PSTR("{s}Humidity{m}%.1f %%{e}"), f_humidity);
+#endif
   }
 }
 

@@ -21,7 +21,6 @@ managed_components
 sdkconfig.*
 sdkconfig.defaults
 CMakeLists.txt
-data
 unpacked_fs
 unpacked_boards
 tasmota/user/*
@@ -34,7 +33,6 @@ build_output/*
 firmware.map
 firmware.asm
 tasmota/tasmota.ino.cpp
-platformio_override.ini
 platformio_tasmota_cenv.ini
 platformio_tasmota_user_env.ini
 platformio_tasmota_core3_env.ini
